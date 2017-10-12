@@ -1,0 +1,149 @@
+##############################################################################
+## This is the example configuration file. Copy it to $HOME/.ncmpcpp/config ##
+## or $XDG_CONFIG_HOME/ncmpcpp/config and set up your preferences.          ##
+##############################################################################
+#
+##### directories ######
+
+ncmpcpp_directory = ~/.config/ncmpcpp
+#lyrics_directory = ~/.lyrics
+mpd_host = localhost
+mpd_port = 6600
+mpd_connection_timeout = 5
+mpd_music_dir = ~/Music
+mpd_crossfade_time = 5
+
+##### music visualizer #####
+visualizer_fifo_path = /tmp/mpd.fifo
+visualizer_output_name = my_fifo 
+visualizer_in_stereo = yes
+visualizer_sync_interval = 30
+visualizer_type = spectrum
+visualizer_look = ▁▁
+
+##### song format #####
+#song_list_format = {%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
+#song_status_format = {{%a{ "%b"{ (%y)}} - }{%t}}|{%f}
+#song_library_format = {%n - }{%t}|{%f}
+alternative_header_first_line_format = $b$(161)$aqqu$/a$(end) {%t}|{%f} $(161)$atqq$/a$(end)$/b
+alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
+current_item_prefix = $(251)$r$b
+current_item_suffix = $/r$/b$(end)
+current_item_inactive_column_prefix = $(240)$r
+current_item_inactive_column_suffix = $/r$(end)
+now_playing_prefix = $(161)$b$u
+now_playing_suffix = $/b$/u$(end)
+browser_playlist_prefix = "$2playlist$9 "
+selected_item_prefix = $(161)
+selected_item_suffix = $(end)
+modified_item_prefix = $3|$9
+song_window_title_format = {%a - }{%t}|{%f}
+browser_sort_mode = name
+browser_sort_format = {%a - }{%t}|{%f} {(%l)}
+
+#### columns settings #####
+song_columns_list_format = (20)[]{a} (6f)[]{NE} (50)[]{t|f:Title} (20)[]{b} (7f)[]{l}
+
+##### various settings #####
+execute_on_player_state_change = ""
+playlist_show_mpd_host = no
+playlist_show_remaining_time = no
+playlist_shorten_total_times = no
+playlist_separate_albums = no
+
+# Note: Possible display modes: classic, columns.
+playlist_display_mode = columns
+browser_display_mode = columns
+search_engine_display_mode = columns
+playlist_editor_display_mode = columns
+discard_colors_if_item_is_selected = no
+show_duplicate_tags = yes
+incremental_seeking = yes
+seek_time = 1
+volume_change_step = 5
+autocenter_mode = yes
+centered_cursor = yes
+
+# part of progressbar.
+progressbar_look = ─|─
+
+# Available values: database, playlist.
+default_place_to_search_in = database
+
+# Available values: classic, alternative.
+user_interface = alternative
+data_fetching_delay = yes
+
+# Available values: artist, album_artist, date, genre, composer, performer.
+media_library_primary_tag = album_artist
+media_library_albums_split_by_date = no
+
+# Available values: wrapped, normal.
+default_find_mode = normal
+default_tag_editor_pattern = %D - %t
+header_visibility = no
+statusbar_visibility = no
+titles_visibility = yes
+header_text_scrolling = yes
+cyclic_scrolling = no
+lines_scrolled = 2
+
+#lyrics_fetchers = lyricwiki, azlyrics, genius, sing365, lyricsmania, metrolyrics, justsomelyrics, jahlyrics, plyrics, tekstowo, internet
+#follow_now_playing_lyrics = no
+#fetch_lyrics_for_current_song_in_background = no
+#store_lyrics_in_song_dir = no
+#generate_win32_compatible_filenames = yes
+
+allow_for_physical_item_deletion = no
+lastfm_preferred_language = en
+space_add_mode = add_remove
+show_hidden_files_in_local_browser = no
+
+# How shall screen switcher work?
+
+screen_switcher_mode = playlist, browser
+startup_screen = playlist
+#startup_slave_screen = "medial_library"
+#startup_slave_screen_focus = no
+#locked_screen_width_part = 50
+#ask_for_locked_screen_width_part = yes
+jump_to_now_playing_song_at_start = yes
+ask_before_clearing_playlists = yes
+clock_display_seconds = no
+display_volume_level = yes
+display_bitrate = yes
+display_remaining_time = yes
+# Available values: none, basic, extended, perl.
+regular_expressions = perl
+ignore_leading_the = no
+ignore_diacritics = no
+block_search_constraints_change_if_items_found = yes
+mouse_support = yes
+mouse_list_scroll_whole_page = yes
+empty_tag_marker = ----empty-tag----
+tags_separator = " | "
+tag_editor_extended_numeration = no
+media_library_sort_by_mtime = no
+enable_window_title = yes
+search_engine_default_search_mode = 1
+external_editor = vim
+use_console_editor = yes
+
+#### colors definitions #####
+colors_enabled = yes
+empty_tag_color = 240
+header_window_color = 250 
+volume_color = default:b
+state_line_color = default
+state_flags_color = default:b
+main_window_color = 251
+color1 = white
+color2 = green
+progressbar_color = default:b
+progressbar_elapsed_color = 161:b
+statusbar_color = default
+statusbar_time_color = default:b
+player_state_color = default:b
+alternative_ui_separator_color = 161:b
+window_border_color = 161
+active_window_border = 161

@@ -1,0 +1,9 @@
+#!/bin/bash
+web_status=$(curl -Is https://aur.archlinux.org/packages/spotify/ | awk '/HTTP.*([2-3]0[0-9])/ {print $2}')
+[[ -z ${web_status} ]] && exit 0
+pac=$(checkupdates | wc -l)
+aur=$(cower -u | wc -l)
+check=$(($pac+$aur))
+if [[ $check -gt 10 ]]; then
+    echo "$pac %{F#5b5b5b}%{F-} $aur"
+fi

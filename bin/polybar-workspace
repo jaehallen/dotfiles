@@ -1,0 +1,5 @@
+#!/bin/bash
+# current_workspace=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | grep -o '[0-9]\+')
+# current_workspace=$(i3-msg -t get_workspaces | grep -Eo '"name":"[0-9]+:.","visible":(true|false),"focused":true' | grep -o '[0-9]\+')
+current_workspace=$(i3-msg -t get_outputs | grep -Eo '"current_workspace":"[0-9]+:.?"' | grep -Eo '[0-9]+')
+echo "%{F#5b}%{F-}%{F#FC6028}$current_workspace%{F-}%{F#5b}%{F-}"

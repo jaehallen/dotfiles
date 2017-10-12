@@ -1,0 +1,9 @@
+#!/bin/bash
+state=$(xmodmap -pke | grep -i "66.*Super_L Caps_Lock")
+if [ -n "$state" ]; then
+  setxkbmap -option
+  notify-send -t 1000 " Caps Lock Enable"
+else
+  setxkbmap -option caps:super,grp:caps_toggle
+  notify-send -t 1000 " Caps Lock Disable"
+fi

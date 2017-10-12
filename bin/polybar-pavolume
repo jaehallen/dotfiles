@@ -1,0 +1,18 @@
+#!/bin/bash
+
+headphone=$(pa query | grep -i 'headphone')
+sink=$(pa query | awk '/sink/ {print $2}')
+curVol=$(pa query | awk '/vol/ {print $2}')
+curStatus=$(pa query | awk '/mute/ {print $2}')
+
+if [[ $sink == 0 ]]; then
+    [[ -n $headphone ]] && icon=|| icon=
+else
+    icon=
+fi
+
+if [[ $curStatus = 'yes' ]]; then
+   echo "%{F#5b}%{F-}$curVol"
+ else
+   echo "%{F#5b}$icon%{F-}$curVol "
+fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+block=$(lsblk -lo name,mountpoint | grep 'sd[^a].*/run/media/chito')
+[[ -n $block ]] && icon= || icon=""
+
+echo "$icon"
+

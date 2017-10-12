@@ -1,0 +1,37 @@
+#!/bin/bash
+
+config_file="${XDG_CONFIG_HOME:-${HOME}/.config}/my-script/power.conf"
+
+if [[ ! -f $config_file ]]; then
+    config_file="/etc/power-settings.conf"
+fi
+
+AC=$(cat /sys/class/power_supply/ADP1/online)
+[[ $AC == 0 ]] && power=BAT || power=AC
+alarm=$(cat $config_file | awk -F '=' '/'$power'-alarm/ {print $2}')
+
+case "$1" in
+  start)
+      echo "Setting Alarm to $(date -d "+${alarm} seconds" +'%I:%M:%S %p')"
+      rtcwake -s $alarm -m no
+    ;;
+  stop)
+    timeout=$(cat /sys/class/rtc/rtc0/wakealarm)
+    curtime=$(date +%s)
+    if [[ -z "$timeout" ]] || [[ "$curtime" -ge "$timeout" ]]; then
+      echo "Hibernating" 
+      systemctl hibernate
+      if [[ $? -ne 0 ]]; then
+        systemctl suspend
+        if [[ $? -ne 0 ]]; then
+          killall -q i3lock
+          sleep 1
+          systemctl suspend
+        fi
+      fi
+    else
+      echo "Waking Up" 
+      rtcwake -m disable
+    fi
+    ;;
+esac

@@ -1,0 +1,61 @@
+ +grave        Extended Launcher
+ +Shift+B      Border
+ +Shift+G      Gaps
+
+ +           Terminal
+ +Shift+     Terminal "quick_terminal"
+grave           Scratchpad quick_terminal
+ +;            Rofi Launcher
+ +F2           Chromium
+ +Shift+F2     Chromium "DRI_PRIME=1"
+ +F3           PCManFM
+ +Shift+F3     Ranger
+ +R            Scratchpad Ranger
+ +F4           Qutebrowser "webengine"
+ +Ctrl+M       PulseAudio Volume Control
+ +Ctrl+C       Start Compton
+ +C            Kill Compton
+ +Shift+D      Restart Dunst
+ +PrtSc        Print  Window
+ +Shift+PrtSc  Print Select
+ +Ctrl+CpsLck  Enable/Disable Capslock
+PrtSc           Print Screen
+ +F10          Spotify Play/Pause
+ +F11          Spotify Previous
+ +F12          Spotify Next
+
+ +D            Kill Focused Window
+ +S            Layout Stacking
+ +W            Layout Tabbed
+ +E            Layout Toggle Split
+ +B            Split Horizontal
+ +V            Split Vertical
+ +Z            Split Toggle
+ +F            FullScreen Toggle
+ +Space        Focus Mode Toggle
+ +Shift+Space  Floting Toggle
+ +Ctrl+Space   Center Floating Window
+ +Shift+S      Sticky Moe toggle
+ +A            Focus Parent
+ +Minus        Scratchpad Show
+ +Shift+Minus  Move To Scratchpad
+
+ +[H,J,K,L]        Focus Window
+ +[   ]        Focus Window
+ +Shift+[H,J,K,L]  Move Window
+ +Shift+[   ]  Move Window
+ +Ctrl+[   ]   Resize Window
+ +Ctrl+           Move & Resize Window (Left)
+ +Ctrl+           Move & Resize Window (Right)
+
+ +[1-9,0]          Switch to Workspace
+ +Ctrl+[1-9,0]     Move Container to Workspace
+ +Shift+[1-9,0]    Switch with Container to Workspace
+ +Tab              Switch Workspace Back and Forth
+ +Shit+Tab         Move Container to Workspace Back and Forth
+
+ +Delete           Power Menu
+ +Ctrl+Delete      Lockscreen
+ +Shift+C          Reload i3wm Configuration
+ +Shift+R          Restart i3wm
+ +Shift+Escape     Exit i3wm (Logout)

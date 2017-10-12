@@ -1,0 +1,52 @@
+#!/bin/bash
+battery=0
+info=$(acpi -b | grep "Battery ${battery}")
+state=$(echo "${info}" | grep -wo "Full\|Charging\|Discharging\|Unknown")
+capacity=$(echo "${info}" | grep -o '[0-9]\+%' | tr -d '%')
+time=$(echo "${info}" | grep -o '[0-2][0-9]:[0-5][0-9]')
+hr=${time:0:2}
+min=${time:3:2}
+TMP=/tmp/counter
+icon=""
+if [ ! -f $TMP ]; then echo "0">$TMP; fi
+
+if [ "${state}" = "Charging" ]; then
+  count=$(cat $TMP)
+  if [  $count -eq 0  ]; then
+      squares=""
+  elif [ $count -eq 1 ]; then
+      squares=""
+  elif [ $count -eq 2 ]; then
+      squares=""
+  elif [ $count -eq 3 ]; then
+      squares=""
+  else
+      squares=""
+  fi
+  count=$(($(cat $TMP) + 1))
+  if [ $count -gt 4 ]; then count=0; fi
+  echo $count > $TMP
+  echo "%{F#5b}${squares} %{F-} $capacity%"
+elif [[ "${state}" = "Discharging" ]]; then
+  if [ $capacity -lt 20 ]; then
+    squares=""
+  elif [ $capacity -lt 40 ]; then
+      squares=""
+  elif [ $capacity -lt 60 ]; then
+      squares=""
+  elif [ $capacity -lt 80 ]; then
+      squares=" "
+  else
+      squares=""
+  fi
+  if [ $capacity -lt 4 ]; then
+    notify-send -u critical -t 10000 -- 'Critical Battery Threshold'
+    systemctl hibernate
+  elif [ $capacity -lt 10 ]; then
+    echo "%{F#e60053}${squares}%{F-} $capacity% $hr%{F#92}$min%{F-}"
+  else
+    echo "%{F#5b}${squares}%{F-} $capacity% $hr%{F#92}$min%{F-}"
+  fi
+else
+  echo "%{F#5b}%{F-} ${capacity}%"
+fi

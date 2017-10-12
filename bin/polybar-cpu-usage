@@ -1,0 +1,5 @@
+#!/bin/bash
+activewin=$(xprop -id $(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2) WM_CLASS | cut -d '"' -f 4)
+cmd=${activewin,,}
+CPU=$(ps -C $cmd -o %cpu | awk 'FNR>1 {sum+=$1}; END {print sum}')
+notify-send -t 1000 "$CPU"

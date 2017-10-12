@@ -1,0 +1,13 @@
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+DISPLAY=:0
+HOME=/home/chito
+JOURNAL_STREAM=9:16216
+LANG=en_PH.UTF-8
+LOGNAME=chito
+MAIL=/var/spool/mail/chito
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+SHELL=/bin/bash
+USER=chito
+XAUTHORITY=/home/chito/.Xauthority
+XDG_RUNTIME_DIR=/run/user/1000
+

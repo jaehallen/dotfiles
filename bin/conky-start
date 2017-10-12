@@ -1,0 +1,4 @@
+#!/bin/bash
+
+conky -p 10 -d -c ~/.config/conky/conkyrc && 
+conky -p 2 -d -c ~/.config/conky/conkyrc1

@@ -1,0 +1,8 @@
+#!/bin/bash
+ranger_pid=$(pgrep -f terminal_ranger)
+
+if [[ -n $ranger_pid ]]; then
+    i3-msg [instance="terminal_ranger"] scratchpad show
+else
+    termite --name=terminal_ranger -e ranger
+fi

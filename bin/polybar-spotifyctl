@@ -1,0 +1,12 @@
+#!/bin/bash 
+  
+[[ ! $(pgrep -x spotify) ]] && echo "%{F#5b}  %{F-}" && exit 0
+playback=$(sp status)
+Artist=$(sp metadata | awk -F'|' '/artist/{print $2}')
+Title=$(sp metadata | awk -F'|' '/title/{print $2}')
+
+if [[ $playback = "Playing" ]]; then
+  echo "%{F#FC6028}  %{F-} $Artist - %{F#92}$Title%{F-}"
+else
+  echo "%{F#FC6028}  %{F-} $playback"
+fi

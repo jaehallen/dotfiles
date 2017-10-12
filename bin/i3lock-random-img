@@ -1,0 +1,5 @@
+#!/bin/bash
+image_dir="${HOME}/Pictures/Wallpaper-PNG"
+image=$(ls $image_dir | shuf -n 1)
+[[ $(pgrep -x spotify) ]] && sp pause
+i3lock --nofork --show-failed-attempts --tiling --ignore-empty-password --image ${image_dir}/$image

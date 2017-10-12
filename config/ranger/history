@@ -1,0 +1,50 @@
+search share
+?
+search pixmaps
+search pixmap
+search doc
+search mpd
+searcq
+rename mpd.conf
+filete mkv
+open_with i3-msg exec mpv
+filet mkv
+filter mkv
+filter mp4
+filter pdf
+rename [HorribleSubs] Aldnoah Zero - 03 [720p][AAC].mp4
+rename [HorribleSubs] Aldnoah Zero - 10 [720p][AAC].mp4
+rename alsa-li
+open_with 
+%f
+echo
+echo ls
+echo %f
+echo %s
+echo %d
+echo %p
+find acoun
+search 
+search wall
+flat 1
+flat
+falt 0
+flat 0
+my_edit 
+find pi
+restart
+reload
+find 
+
+rename the-web-developer-bootcamp
+open_with mpv
+shell 
+cd
+search web
+search sss
+search shop
+delete
+search Pro
+open_with 0
+search Web
+open_with 1

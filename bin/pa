@@ -1,0 +1,163 @@
+#!/bin/bash
+
+inc='5'
+capvol='yes'
+maxvol='200'
+
+usb_index=$(pactl list sinks short | awk '/usb/ {print $1}' )
+headphones=$(pactl list sinks | grep -i 'Active Port:.*headphones')
+active_sink=$(pacmd list-sinks | awk '/* index:/ {print $3}' )
+limit=$(expr 100 - $inc)
+maxlimit=$(expr $maxvol - $inc)
+
+if [[ $active_sink == 0 ]]; then
+  [[ -n $headphones ]] && device='Headphone'|| device='Built-in-Speaker'
+else
+  device='USB-Speaker'
+fi
+
+function activePort {
+    active_port=$(pacmd list-sinks | grep -A 100 '* index' | awk -F'<|>' '/active port/ {print $2}')
+}
+
+function setDefault {
+  if [[ -n $usb_index ]] && [[ $active_sink == 0 ]]; then
+    pacmd set-default-sink ${usb_index}
+    moveSinkInputs ${usb_index}
+  else
+    pacmd set-default-sink 0
+    moveSinkInputs 0
+  fi
+}
+
+function volUp {
+  getCurVol
+  if [[ $capvol == 'yes' ]]
+  then
+    if [[ $curVol -le 100 ]] && [[ $curVol -ge $limit ]]
+    then
+      pactl set-sink-volume ${active_sink} 100%
+    elif [[ $curVol -lt $limit ]]
+    then
+      pactl set-sink-volume $active_sink +${inc}%
+    fi
+  elif [[ $curVol -le $maxvol ]] && [[ $curVol -ge $maxlimit ]]
+  then
+      pactl set-sink-volume $active_sink ${maxvol}%
+  elif [[ $curVol -lt $maxlimit ]]
+  then
+      pactl set-sink-volume $active_sink +${inc}%
+  fi
+}
+
+function volDown {
+  getCurVol
+  pactl set-sink-volume $active_sink -${inc}%
+}
+
+function volSet {
+    getCurVol
+    volValue=$(echo $1 | grep -Eo '[1-9][0-9]?[0-9]?')
+    if [[ -n $volValue ]]; then 
+        pactl set-sink-volume $active_sink $1%
+    fi
+}
+
+function getSinkInputs {
+  input_array=$(pacmd list-sink-inputs | grep -B 4 'sink:' | awk '/index:/{print $2}')
+}
+
+function volSync {
+  getSinkInputs
+  getCurVol
+  for each in ${input_array}; do
+    pactl set-sink-input-volume ${each} ${curVol}%
+  done
+}
+
+function moveSinkInputs {
+  getSinkInputs
+  for each in ${input_array}; do
+    pactl move-sink-input ${each} $1
+  done
+}
+
+function volMute {
+  case "$1" in
+    mute)
+      pactl set-sink-mute $active_sink 1
+      curVol=0
+      Status=1
+      ;;
+    unmute)
+      pactl set-sink-mute $active_sink 0
+      getCurVol
+      Status=0
+      ;;
+  esac
+}
+
+function volMuteStatus {
+  curStatus=$(pacmd list-sinks | grep -A 15 'index: '$active_sink'' | awk '/muted/{print $2}')
+}
+
+function getCurVol {
+  curVol=$(pacmd list-sinks | grep -A 15 'index: '$active_sink'' | awk -F'/' '/volume.*left.*right/ {print $2}' | grep -oE '[0-9]+')
+}
+
+case "$1" in
+  inc)
+      volUp
+  ;;
+  dec)
+      volDown
+  ;;
+  set)
+      volSet "$2"
+  ;;
+  togmute)
+      volMuteStatus
+      if [[ $curStatus = 'yes' ]]; then
+        volMute unmute
+      else
+       volMute mute
+      fi
+  ;;
+  mute)
+      volMute mute
+  ;;
+  unmute)
+      volMute unmute
+  ;;
+  sync-inputs)
+      volSync
+  ;;
+  toggle-default)
+      setDefault
+  ;;
+  move-inputs)
+      moveSinkInputs $active_sink
+  ;;
+  query)
+      getCurVol
+      volMuteStatus
+      activePort
+      echo "sink: $active_sink"
+      echo "port: $active_port"
+      echo "vol:  $curVol"
+      echo "mute: $curStatus"
+  ;;
+  *)
+      echo "pa [options]"
+      echo "inc               -increase volume"
+      echo "dec               -decrease volume"
+      echo "togmute           -toggle Mute"
+      echo "unmute            -unmute"
+      echo "mute              -mute"
+      echo "sync-inputs       -sync all applications volume equal to output default device"
+      echo "toggle-default    -toggle default output device"
+      echo "move-inputs       -move all application to default output device"
+      echo "query             -info"
+
+esac
+

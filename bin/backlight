@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in
+  inc)
+    xbacklight -inc 13
+  ;;
+  dec)
+    xbacklight -dec 12.5
+  ;;
+esac
+sleep 0.1
+backlight=$(printf "%.0f\n" $(xbacklight -get))
+notify-send -t 1000 "[💡 ${backlight}]"
+config_file="${XDG_CONFIG_HOME:-${HOME}/.config}/my-script/power.conf"
+sed -i "s/^\(AC-backlight\s*=\s*\).*/\1$backlight/" $config_file

@@ -1,0 +1,32 @@
+#!/bin/bash
+TMP=/tmp/power-state
+AC=$(cat /sys/class/power_supply/ADP1/online)
+
+
+if [ ! -f $TMP ]; then
+  echo "$AC">$TMP
+else
+  state=$(cat $TMP)
+  if [[ $AC -eq $state ]] || [[ -f /tmp/power-manager.lock ]] || [[ -z $(pgrep X) ]]; then
+    exit 0 
+  fi
+  echo "$AC">$TMP
+fi
+
+config_file="${XDG_CONFIG_HOME:-${HOME}/.config}/my-script/power.conf"
+[[ $AC == 0 ]] && power=BAT || power=AC
+[[ $AC == 0 ]] && icon=|| icon=
+
+while IFS=' -| =' read -r state var val; do
+  [[ ${state:0:1} == "#" ]] && continue
+  [[ -z "${state}" ]] && continue
+  if [[ $state == $power ]] && [[ "$val" =~ ^[0-9]+$ ]]; then
+      declare "${var}=${val}"
+    fi
+done < $config_file
+
+[[ -n $(pgrep xautolock) ]] && killall -q xautolock
+notify-send ''$icon' [💡 '${backlight}']'
+xbacklight -set "${backlight}"
+xautolock -detectsleep -time ${idle_time} -locker 'i3lock-random-img' -killtime ${killtime} -killer 'systemctl suspend' -notify 30 -notifier 'notify-send -u critical -t 10000 -- "LOCKING screen in 30 seconds"'
+

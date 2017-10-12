@@ -1,0 +1,18 @@
+#!/bin/bash
+[[ ! -d "$HOME/Pictures/Wallpaper-PNG/" ]] && mkdir -p "$HOME/Pictures/Wallpaper-PNG/"
+while [ -n "$1" ]
+  do
+    height=$(identify -format "%h" $1)
+    fileExist=$(ls -l $HOME/Pictures/Wallpaper-PNG/ | grep "$1")
+    if [[ -z $fileExist ]]; then
+      if [[ $height -gt 770 ]]; then
+        convert $1 -resize 'x770' -set filename:base "%[base]" $HOME/Pictures/Wallpaper-PNG/%[filename:base].png
+      else
+        convert $1 -set filename:base "%[base]" $HOME/Pictures/Wallpaper-PNG/%[filename:base].png
+      fi
+    else
+      notify-send -t 1000 'File already exist'
+      echo 'File already exist'
+    fi
+    shift
+done

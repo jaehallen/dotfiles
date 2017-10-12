@@ -1,0 +1,92 @@
+#!/bin/bash
+
+config_file="${HOME}/.config/conky/task.txt"
+day_now=$(date +%e )
+month_num=$(date +%m | grep -Eo '1?[0-9]$')
+month_now=$(date +'%B %Y')
+task list>$config_file
+declare -a linearr
+declare -a conkyout
+declare -a color=('${color0}'\
+                  '${color1}'\
+                  '${color2}'\
+                  '${color3}'\
+                  '${color4}'\
+                  '${color5}'\
+                  '${color6}'\
+                  '${color7}'\
+                  '${color8}'\
+                  '${color9}')
+
+#Calendar
+calendar=$(cal | sed -re 's/^ ?[0-9Su]+/'${color[5]}'&${color}/' \
+                     -re 's/'"${month_now}"'\b/'${color[6]}'&${color}/' \
+                    -e 's/'"$day_now"'\b/'${color[6]}'&${color}/') 
+
+if [[ -n $(cat $config_file) ]]; then
+    
+    while IFS= read -r line; do
+        [[ -z "${line}" ]] && continue
+        [[ "${line}" =~ ([0-9]+ +tasks?)  ]] && continue
+        [[ "${line}" =~ (--.*)  ]] && continue
+        if [[ $line =~ (^ID.*?Description.*?Urg) ]]; then
+            header="${line}"
+        else
+            linearr+=("${line}")
+        fi
+    done < $config_file
+    
+    #Process Variables
+    for str in "${linearr[@]}"; do
+        task_urg=$(echo "${str}" | grep -Eo '([0-9]+\.?[0-9]?[0-9]?)$')
+        task_due=$(echo "${str}" | grep -Eo '([0-9]{4}.*-[0-9]{2})')
+        task_due_sec=$(date -d "${task_day}" +%s)
+        date_today=$(date +%s)
+    
+        if [[ -n ${task_due} ]]; then
+            task_day=$(date -d $task_due +%e)
+            task_month=$(date -d $task_due +%m | grep -Eo '1?[0-9]$')
+            due_diff=$(printf %.$2f $(bc <<< "scale=2;($task_due_sec-$date_today)/(24*3600)"))
+            
+            if [[ "$task_day" -ne "$day_now" ]] && [[ "$task_month" -eq "$month_num" ]]; then
+                calendar=$(echo "$calendar" | sed 's/'"$task_day"'\b/'${color[2]}'&${color}/')
+            fi
+    
+            if (( $(bc <<< "${due_diff} < 2") )); then
+                conkyout+=(${color[1]}"${str}")
+            elif (( $(bc <<< "${task_urg} > 6") )); then
+                conkyout+=(${color[2]}"${str}")   
+            else 
+                conkyout+=(${color[3]}"${str}")
+            fi
+        else
+            if (( $(bc <<< "${task_urg} > 6") )); then
+                conkyout+=(${color[2]}"${str}")
+            else
+                conkyout+=(${color[3]}"${str}")
+            fi
+        fi
+    done
+else 
+    header='${offset 120}'"No Available Task"
+    conkyout+=('${font DejaVuSansMono Nerd Font:size=32}${offset 160}')
+fi
+
+case $1 in
+    --cal)
+        echo "$calendar"
+        ;;
+    --task)
+        h_line=${color[5]}'${voffset -10}$hr'
+        echo ${color[6]}"$header"
+        echo ${color[0]}'${voffset -5}$hr'
+        for each in "${conkyout[@]}"; do
+            echo '${voffset -5}'"${each}"
+            echo "${h_line}"
+        done
+        ;;
+    *)
+        echo "$0 --cal | --task"
+        exit 1
+        ;;
+esac

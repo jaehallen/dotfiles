@@ -1,0 +1,6 @@
+#!/bin/bash
+[[ ! -f /tmp/power-manager.lock ]] && touch /tmp/power-manager.lock
+i3lock-random-img
+[[ -f /tmp/power-manager.lock ]] && rm /tmp/power-manager.lock
+sleep 1
+power-manager

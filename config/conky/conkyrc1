@@ -1,0 +1,76 @@
+conky.config = {
+
+	--Various settings
+	background = true, 							-- forked to background
+	double_buffer = true,
+	no_buffers = true,
+	text_buffer_size = 2048,
+	update_interval = 1,
+
+	--Placement
+	alignment = 'bottom_left',
+	gap_x = 46,
+	gap_y = 10,
+	minimum_height = 270,
+	minimum_width = 380,
+	maximum_width = 500,
+
+	--Graphical
+	border_inner_margin = 5, 					-- margin between border and text
+	border_outer_margin = 1, 					-- margin between border and edge of window
+	border_width = 0, 							-- border width in pixels
+	default_shade_color = '#000000',
+	default_outline_color = '#000000',
+	draw_borders = false,						--draw borders around text
+	draw_graph_borders = true,
+	draw_shades = false,
+	draw_outline = false,
+	stippled_borders = 0,
+
+	--Textual
+	extra_newline = false,
+	format_human_readable = true,
+	font = 'DejaVu Sans Mono:size=9',
+	max_text_width = 0,
+	max_user_text = 16384,
+	override_utf8_locale = true,
+	short_units = true,
+	top_name_width = 21,
+	top_name_verbose = false,
+	uppercase = false,
+	use_spacer = 'none',
+	use_xft = true,
+	xftalpha = 1,
+
+	--Windows
+	own_window = true,
+	own_window_argb_value = 0,
+	own_window_argb_visual = true,
+	own_window_class = 'Conky',
+	-- own_window_colour = '#0D1013',
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	own_window_transparent = yes,
+	own_window_title = 'Conky Date Task',
+	own_window_type = 'override',-- # options are: normal/override/dock/desktop/panel
+	
+
+	--Colours
+	default_color = '#888888',  				-- default color and border color
+    color0 = '#333333', --dark gray
+	color1 = '#AA5555', --red 
+	color2 = '#AA7755', --red 2
+    color3 = '#555555', --black
+    color4 = '#DDDDDD', --gray
+    color5 = '#111111', --black2
+    color6 = '#AD4824', --orange
+	color7 = '#545454', --gray
+	color8 = '#AAAAAA', --whiter gray
+	color9 = '#4E1D1E', --dark grey
+};
+
+conky.text = [[
+${font}${color}${execpi 60 ~/.local/bin/conky-task --cal}
+
+
+${voffset 5}${execpi 60 ~/.local/bin/conky-task --task}
+]];

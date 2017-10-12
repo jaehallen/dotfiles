@@ -1,0 +1,14 @@
+#!/bin/bash
+opt=$1
+
+case "$opt" in
+  -w)
+    scrot -u '%Y-%m-%d_%H%M%S_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+    ;;
+  -s)
+    scrot -s '%Y-%m-%d_%H%M%S_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+    ;;
+   *)
+    scrot '%Y-%m-%d_%H%M%S_$wx$h.png' -e 'mv $f ~/Pictures/Screenshots/'
+    ;;
+esac
