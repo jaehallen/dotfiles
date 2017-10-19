@@ -52,7 +52,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 exec --no-startup-id nm-applet
 exec --no-startup-id udiskie
-exec --no-startup-id power-manager
+exec --no-startup-id power-saving
 exec --no-startup-id $HOME/.local/bin/capslock_dis_en
 exec --no-startup-id killall conky; sleep 2; $HOME/.local/bin/conky-start
 exec_always --no-startup-id $HOME/.local/bin/polybar-launch
@@ -61,7 +61,7 @@ exec_always --no-startup-id $HOME/.local/bin/polybar-launch
 bindsym $mod+F2 exec chromium
 bindsym $mod+Shift+F2 exec DRI_PRIME=1 chromium
 bindsym $mod+F3 exec --no-startup-id pcmanfm
-bindsym $mod+F4 exec --no-startup-id qutebrowser --backend webengine
+bindsym $mod+F4 exec --no-startup-id qutebrowser
 bindsym $mod+c exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+c exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec --no-startup-id "killall dunst; exec notify-send 'restart dunst'"
@@ -77,7 +77,7 @@ set $mode_extended %{F#44}﴾%{F-}%{F#FC6028} %{F-}%{F#44}﴿%{F-}
 mode "$mode_extended" {
   bindsym c exec --no-startup-id chromium; mode "default"
   bindsym f exec --no-startup-id firefox; mode "default"
-  bindsym q exec --no-startup-id qutebrowser --backend webengine; mode "default"
+  bindsym q exec --no-startup-id qutebrowser; mode "default"
   bindsym r exec --no-startup-id termite --name=rangerfm -e ranger; mode "default"  
 
   bindsym Return mode "default"
@@ -90,7 +90,7 @@ bindsym $mod+F11 exec --no-startup-id sp prev
 bindsym $mod+F12 exec --no-startup-id sp next
 
 # Specific Scratchpad Applications
-bindsym grave [instance="quick_terminal"] scratchpad show
+bindsym mod1+Return [instance="quick_terminal"] scratchpad show
 bindsym $mod+r exec --no-startup-id $HOME/.local/bin/quick_ranger 
 # bindsym $mod+r [instance="terminal_ranger"] scratchpad show
 
@@ -123,6 +123,7 @@ for_window [class="Xsensors"] floating enable
 for_window [class="file-roller"] floating enable
 for_window [class="Xdialog"] floating enable
 for_window [class="Pale moon" window_role="Organizer"] floating enable
+for_window [class="mpv"] floating enable, move absolute position center
 for_window [instance="terminal_ranger"] floating enable, move scratchpad, resize set 1200px 600px, move absolute position center
 for_window [instance="rangerfm"] floating enable, resize set 1200px 600px, move absolute position center
 for_window [instance="quick_terminal"] floating enable, move scratchpad, resize set 1000px 300px, move position 183 px 27 px, scratchpad show
