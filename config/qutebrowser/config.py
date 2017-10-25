@@ -1288,7 +1288,7 @@ c.url.start_pages = 'https://www.google.com/'
 ## the current web page. * `{backend}`: Either ''webkit'' or
 ## ''webengine'' * `{private}` : Indicates when private mode is enabled.
 ## Type: FormatString
-c.window.title_format = '{perc}{title}{title_sep}'
+c.window.title_format = '{perc}{title}'
 
 ## The default zoom level.
 ## Type: Perc
@@ -1307,6 +1307,16 @@ c.window.title_format = '{perc}{title}{title_sep}'
 ## content.
 ## Type: Bool
 # c.zoom.text_only = False
+
+## User Bindings
+config.bind('<Alt-N>', 'config-cycle content.user_stylesheets /home/chito/.config/solarized-everything-css/css/solarized-all-sites-dark.css "" ;; reload')
+config.bind('<Ctrl-Q>', 'close')
+config.bind('K', 'tab-next')
+config.bind('J', 'tab-prev')
+config.bind('<Alt-H>', 'tab-move -')
+config.bind('<Alt-L>', 'tab-move')
+config.bind('Q', 'record-macro')
+config.unbind('q', mode='normal')
 
 ## Bindings for normal mode
 # config.bind("'", 'enter-mode jump_mark')
@@ -1350,7 +1360,6 @@ c.window.title_format = '{perc}{title}{title_sep}'
 # config.bind('<Ctrl-Return>', 'follow-selected -t')
 # config.bind('<Ctrl-Shift-N>', 'open -p')
 # config.bind('<Ctrl-Shift-T>', 'undo')
-config.bind('<Ctrl-Q>', 'close')
 # config.bind('<Ctrl-T>', 'open -t')
 # config.bind('<Ctrl-Tab>', 'tab-focus last')
 # config.bind('<Ctrl-U>', 'scroll-page 0 -0.5')
@@ -1376,9 +1385,7 @@ config.bind('<Ctrl-Q>', 'close')
 # config.bind('G', 'scroll-to-perc')
 # config.bind('H', 'back')
 # config.unbind('J', 'tab-next')
-config.bind('K', 'tab-next')
 # config.unbind('K', 'tab-prev')
-config.bind('J', 'tab-prev')
 # config.bind('L', 'forward')
 # config.bind('M', 'bookmark-add')
 # config.bind('N', 'search-prev')
@@ -1415,9 +1422,7 @@ config.bind('J', 'tab-prev')
 # config.bind('gf', 'view-source')
 # config.bind('gg', 'scroll-to-perc 0')
 # config.bind('gl', 'tab-move -')
-config.bind('<Alt-H>', 'tab-move -')
 # config.bind('gm', 'tab-move')
-config.bind('<Alt-L>', 'tab-move')
 # config.bind('go', 'set-cmd-text :open {url:pretty}')
 # config.bind('gr', 'tab-move +')
 # config.bind('gt', 'set-cmd-text -s :buffer')
@@ -1432,8 +1437,6 @@ config.bind('<Alt-L>', 'tab-move')
 # config.bind('o', 'set-cmd-text -s :open')
 # config.bind('pP', 'open -- {primary}')
 # config.bind('pp', 'open -- {clipboard}')
-config.unbind('q', mode='normal')
-config.bind('Q', 'record-macro')
 # config.bind('r', 'reload')
 # config.bind('sf', 'save')
 # config.bind('sk', 'set-cmd-text -s :bind')

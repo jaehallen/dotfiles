@@ -283,7 +283,7 @@ assign [class="mpv"] $ws5
 assign [class="vlc"] $ws5
 assign [class="Gpicview"] $ws6
 assign [class="Deluge"] $ws7
-assign [class="Spotify"] $ws8
+assign [title="Spotify"] $ws8
 
 #Focus to Opened Window
 for_window [class="Atom"] focus
