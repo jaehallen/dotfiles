@@ -371,9 +371,8 @@ type = custom/script
 interval = 2
 format = <label>
 label = "%{F#5b}%output%%{F-}"
-format-padding = 1
+; format-padding = 1
 exec = /home/chito/.local/bin/polybar-usb
-exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 
 [module/pkg]
@@ -387,24 +386,19 @@ exec-if = "ping -q -w 2 -c 1 www.google.com > /dev/null"
 
 [module/batterybar]
 type = custom/script
-;tail = true
 interval = 1
 format = <label>
 label = "%output%"
 format-padding = 1
-;format-underline = #ff5c57
 exec = /home/chito/.local/bin/polybar-battery
-;exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 [module/current_workspace]
 type = custom/script
 ;tail = true
 interval = 0.2
 format = <label>
-;format-underline = #ff5c57
 label = "%output%"
 exec = /home/chito/.local/bin/polybar-workspace
-;exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
 
 ; [module/vpncheck]
 ; type = custom/script

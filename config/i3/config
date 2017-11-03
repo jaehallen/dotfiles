@@ -62,6 +62,7 @@ bindsym $mod+F2 exec chromium
 bindsym $mod+Shift+F2 exec DRI_PRIME=1 chromium
 bindsym $mod+F3 exec --no-startup-id pcmanfm
 bindsym $mod+F4 exec --no-startup-id qutebrowser
+bindsym $mod+F5 exec --no-startup-id $HOME/.local/bin/redshift_toggle
 bindsym $mod+c exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+c exec --no-startup-id compton -b
 bindsym $mod+Shift+d --release exec --no-startup-id "killall dunst; exec notify-send 'restart dunst'"

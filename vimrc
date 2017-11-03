@@ -72,7 +72,7 @@ map <Leader>s :source ~/.vimrc<CR>
 nmap <silent> <Leader><Leader> :nohlsearch<CR>
 nmap <silent> <Leader>c :let @/ = ""<CR>
 nnoremap <F3> :set wrap!<CR>
-nnoremap \ :colorscheme 
+" nnoremap \ :colorscheme 
 
 " Save
 nnoremap <Leader>ww :w<CR>
@@ -98,11 +98,14 @@ xnoremap <S-TAB> <
 imap <A-O> <Esc>o
 imap <A-S-O> <Esc>O
 
+"End of bracket
+
 "Window Resize
 nnoremap <C-Right> <C-W>>
 nnoremap <C-Left> <C-W><
 nnoremap <C-Down> <C-W>-
 nnoremap <C-Up> <C-W>+
+
 "Window Focus
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
@@ -136,6 +139,7 @@ if has('linebreak')
 end
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
+autocmd FileType sh setlocal shiftwidth=2 tabstop=2
 
 " search
 set hlsearch
@@ -247,13 +251,18 @@ let g:netrw_altv = 1
 
     " SuperTab like snippets behavior.
     " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<TAB>"
+    " imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<TAB>"
+    " smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<TAB>"
+    imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     " For conceal markers.
     if has('conceal')
       set conceallevel=2 concealcursor=niv
     endif
+    
+    " Enable snipMate compatibility feature.
+    let g:neosnippet#enable_snipmate_compatibility = 1
 
     " Tell Neosnippet about the other snippets
     let g:neosnippet#snippets_directory='~/.vim/plug/vim-snippets/snippets'
@@ -262,6 +271,8 @@ let g:netrw_altv = 1
 
 "vimtext {
     let g:vimtex_view_method = 'zathura'
+    let g:tex_conceal = ""
+    " let g:vimtex_indent_enabled = 0
 "}
 
 "ale {
@@ -273,4 +284,5 @@ let g:netrw_altv = 1
 "indentline {
     let g:indentLine_char = '│'
 "}
+
 
