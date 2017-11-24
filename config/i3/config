@@ -70,20 +70,20 @@ bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Ctrl+Caps_Lock exec --no-startup-id $HOME/.local/bin/capslock_dis_en 
-bindsym $mod+Ctrl+p exec --no-startup-id $HOME/.local/bin/polybar-cpu-usage
+bindsym $mod+Shift+p exec --no-startup-id $HOME/.local/bin/polybar-launch
 
 #mode launch extension
-bindsym $mod+grave mode "$mode_extended"
-set $mode_extended %{F#44}﴾%{F-}%{F#FC6028} %{F-}%{F#44}﴿%{F-}
-mode "$mode_extended" {
-  bindsym c exec --no-startup-id chromium; mode "default"
-  bindsym f exec --no-startup-id firefox; mode "default"
-  bindsym q exec --no-startup-id qutebrowser; mode "default"
-  bindsym r exec --no-startup-id termite --name=rangerfm -e ranger; mode "default"  
-
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-}
+# bindsym $mod+grave mode "$mode_extended"
+# set $mode_extended %{F#44}﴾%{F-}%{F#FC6028} %{F-}%{F#44}﴿%{F-}
+# mode "$mode_extended" {
+#   bindsym c exec --no-startup-id chromium; mode "default"
+#   bindsym f exec --no-startup-id firefox; mode "default"
+#   bindsym q exec --no-startup-id qutebrowser; mode "default"
+#   bindsym r exec --no-startup-id termite --name=rangerfm -e ranger; mode "default"  
+#
+#   bindsym Return mode "default"
+#   bindsym Escape mode "default"
+# }
 
 # Spotify Player Control
 bindsym $mod+F10 exec --no-startup-id sp play
@@ -167,7 +167,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
-workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth no
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Shift+Tab move container to workspace back_and_forth; workspace back_and_forth
 

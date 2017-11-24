@@ -977,7 +977,7 @@ c.fonts.tabs = '9pt monospace'
 ##   - tab-silent: Open a new tab in the existing window without activating the window.
 ##   - tab-bg-silent: Open a new background tab in the existing window without activating the window.
 ##   - window: Open in a new window.
-c.new_instance_open_target = 'tab-bg'
+c.new_instance_open_target = 'tab-bg-silent'
 
 ## Which window to choose when opening links as new tabs. When
 ## `new_instance_open_target` is not set to `window`, this is ignored.
@@ -1314,7 +1314,7 @@ config.bind('<Ctrl-Q>', 'close')
 config.bind('K', 'tab-next')
 config.bind('J', 'tab-prev')
 config.bind('<Alt-H>', 'tab-move -')
-config.bind('<Alt-L>', 'tab-move')
+config.bind('<Alt-L>', 'tab-move +')
 config.bind('Q', 'record-macro')
 config.unbind('q', mode='normal')
 
